@@ -72,7 +72,7 @@ sections:
     content:
       title: Contact
       text: |-
-        Contact me if you have any questions, I am open to collaboration.
+        Feel free to contact me. I am open to collaborations.
       # Contact (add or remove contact options as necessary)
       email: a.belikov@gmail.com
       # Automatically link email and phone or display as text?
