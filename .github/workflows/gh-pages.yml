@@ -32,5 +32,5 @@ jobs:
       with:
         external_repository: alexander-belikov/alexander-belikov.github.io
         publish_branch: main
-        github_token: ${{ secrets.ATOKEN }}
+        deploy_key: ${{ secrets.ATOKEN }}
         publish_dir: ./public
