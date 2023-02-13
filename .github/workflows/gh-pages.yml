@@ -1,4 +1,5 @@
-name: Updater
+name: Updater (WIP)
+
 
 on:
   push:
@@ -6,28 +7,30 @@ on:
       - main
 
 jobs:
-  build:
-    name: Deploy
+  deploy:
+
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-        with:
-          submodules: true
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: 'latest'
-          extended: true
-      - name: Build
-        run: hugo --minify
-      - name: Deploy the site
-        uses: benmatselby/hugo-deploy-gh-pages@master
-        env:
-          TARGET_REPO: alexander-belikov/alexander-belikov.github.io
-          TARGET_BRANCH: main
-          TOKEN: ${{ secrets.ATOKEN }}
-          HUGO_ARGS: '-t academic'
-          CNAME: alexander-belikov.github.io
+    - name: checkout main
+      uses: actions/checkout@v1
+      with:
+        submodules: true
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+    - name: Build
+      run: hugo --minify
+
+    - name: Hugo Deploy GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: ${{ github.ref == 'refs/heads/main' }}
+      with:
+        external_repository: alexander-belikov/alexander-belikov.github.io
+        publish_branch: main
+        github_token: ${{ secrets.ATOKEN }}
+        publish_dir: ./public
